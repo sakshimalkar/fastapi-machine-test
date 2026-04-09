@@ -1,11 +1,11 @@
 from fastapi import FastAPI
-from .database import engine
-from .models import Base
-from .routers import category, product
+from app.database import engine
+from app import models
+from app.routers import category, product
+
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-
-Base.metadata.create_all(bind=engine)
 
 app.include_router(category.router)
 app.include_router(product.router)
